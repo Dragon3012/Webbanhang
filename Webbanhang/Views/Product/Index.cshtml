@@ -1,29 +1,66 @@
 ﻿@model IEnumerable<Webbanhang.Models.Product>
-<h2>Products</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model)
-        {
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Danh sách sản phẩm</h2>
+        <a asp-controller="Product" asp-action="Add" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Thêm sản phẩm mới
+        </a>
+    </div>
+
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-dark">
             <tr>
-                <td>@product.Name</td>
-                <td>@product.Price</td>
-                <td>@product.Description</td>
-                <td>@product.Category?.Name</td>
-                <td>
-                    <a asp-action="Display" asp-route-id="@product.Id">View</a> |
-                    <a asp-action="Update" asp-route-id="@product.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@product.Id">Delete</a>
-                </td>
+                <th>Tên sản phẩm</th>
+                <th>Giá cả</th>
+                <th>Mô tả</th>
+                <th>Hình ảnh</th>
+                <th class="text-center" style="width: 240px;">Hành động</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><strong>@item.Name</strong></td>
+                        <td class="text-danger fw-bold">@item.Price.ToString("#,##0") đ</td>
+                        <td>@item.Description</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.ImageUrl))
+                            {
+                                <img src="@item.ImageUrl" alt="@item.Name" style="max-width: 80px; max-height: 80px; object-fit: cover;" class="img-thumbnail" />
+                            }
+                            else
+                            {
+                                <span class="text-muted">Không có ảnh</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a asp-controller="Product" asp-action="Display" asp-route-id="@item.Id" class="btn btn-info btn-sm text-white">
+                                Chi tiết
+                            </a>
+                            <a asp-controller="Product" asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                                Sửa
+                            </a>
+                            <a asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                                Xóa
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center text-muted">Chưa có sản phẩm nào trong hệ thống.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

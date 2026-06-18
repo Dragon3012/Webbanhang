@@ -1,0 +1,40 @@
+﻿@model Webbanhang.Models.Category
+
+@{
+    ViewData["Title"] = "Xóa danh mục";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">Xác nhận xóa danh mục</h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-danger fw-bold">Bạn có chắc chắn muốn xóa danh mục này không? Hệ thống sẽ gỡ bỏ dữ liệu liên quan.</p>
+
+                    <table class="table table-bordered mt-3">
+                        <tr>
+                            <th style="width: 30%;">Mã số (Id)</th>
+                            <td>@Model.Id</td>
+                        </tr>
+                        <tr>
+                            <th>Tên danh mục</th>
+                            <td>@Model.Name</td>
+                        </tr>
+                    </table>
+
+                    <form asp-action="DeleteConfirmed" method="post" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary"> Hủy bỏ</a>
+                            <button type="submit" class="btn btn-danger"> Xác nhận xóa</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

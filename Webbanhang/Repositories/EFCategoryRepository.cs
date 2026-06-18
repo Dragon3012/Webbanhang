@@ -48,5 +48,10 @@ namespace Webbanhang.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public IEnumerable<Category> GetAllCategories()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
